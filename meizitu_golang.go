@@ -106,6 +106,7 @@ func Get_page_range(url string)(max_page int){
     html = Get_page_content(url)
     
     // fmt.Println(html)
+    // 获取页数上限
     page_range = strings.Split(html,"<ul>")[2]
     page_list := strings.Split(page_range,"<li>")
 
@@ -186,6 +187,7 @@ func Download_picture(url string)(status_code int){
     file_fore = Cal_md5(pic_content)
     file_tail = strings.Split(url,".")[3]
     file_name = file_fore+"."+file_tail
+    fmt.Println(file_name)
 
     if pic_content != "0"{
         ioutil.WriteFile(file_path+file_name,[]byte(pic_content),0666)
@@ -203,8 +205,6 @@ func Cal_md5(content string)(result string){
     md5Ctx := md5.New()
     md5Ctx.Write([]byte(content))
     cipherStr := md5Ctx.Sum(nil)
-    // fmt.Print(cipherStr)
-    // fmt.Print("\n")
     result = hex.EncodeToString(cipherStr)
     return
 }
